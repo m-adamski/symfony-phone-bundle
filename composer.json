@@ -1,0 +1,25 @@
+{
+    "name": "m-adamski/phone-number-bundle",
+    "description": "Phone Number Bundle for Symfony",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maciej Adamski",
+            "email": "m.adamski@ideacode.pl"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "giggsey/libphonenumber-for-php": "^8.8",
+        "symfony/framework-bundle": "^4.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Adamski\\Symfony\\PhoneNumberBundle\\": "src/"
+        }
+    }
+}
