@@ -12,7 +12,9 @@
     "require": {
         "php": "^7.1",
         "giggsey/libphonenumber-for-php": "^8.8",
-        "symfony/framework-bundle": "^4.0"
+        "symfony/form": "^4.0",
+        "symfony/framework-bundle": "^4.0",
+        "symfony/twig-bundle": "^4.0"
     },
     "config": {
         "sort-packages": true
@@ -20,6 +22,11 @@
     "autoload": {
         "psr-4": {
             "Adamski\\Symfony\\PhoneNumberBundle\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
         }
     }
 }

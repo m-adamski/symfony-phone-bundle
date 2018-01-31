@@ -50,26 +50,13 @@ class PhoneNumber implements JsonSerializable, Serializable {
     }
 
     /**
-     * Get country of the phone number.
-     *
-     * @return string
-     */
-    public function getCountry() {
-        if (!$this->country) {
-            // TODO:
-        }
-
-        return $this->country;
-    }
-
-    /**
      * Generate instance of BasePhoneNumber.
      *
      * @return bool|BasePhoneNumber
      */
     public function getPhoneNumberInstance() {
         try {
-            return $this->phoneNumberUtil->parse($this->number, $this->getCountry());
+            return $this->phoneNumberUtil->parse($this->number, $this->country);
         } catch (NumberParseException $exception) {
             return false;
         }
@@ -131,6 +118,13 @@ class PhoneNumber implements JsonSerializable, Serializable {
      * {@inheritdoc}
      */
     public function jsonSerialize() {
+        return $this->formatE164();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString() {
         return $this->formatE164();
     }
 
