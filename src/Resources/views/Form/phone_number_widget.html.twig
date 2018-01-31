@@ -1,6 +1,11 @@
 {% block phone_number_widget %}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-row')|trim}) %}
     <div {{ block('widget_container_attributes') }}>
-        {{ form_widget(form.country) }}
-        {{ form_widget(form.number) }}
+        <div class="col">
+            {{ form_widget(form.country) }}
+        </div>
+        <div class="col">
+            {{ form_widget(form.number) }}
+        </div>
     </div>
-{% endblock %}
+{% endblock phone_number_widget %}
