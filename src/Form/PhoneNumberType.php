@@ -27,16 +27,24 @@ class PhoneNumberType extends AbstractType {
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add("country", ChoiceType::class, [
-            "label"   => false,
+
+        // Define global config array for both fields
+        $config = [
+            "label"              => false,
+            "required"           => $options["required"],
+            "disabled"           => $options["disabled"],
+            "error_bubbling"     => $options["error_bubbling"],
+            "translation_domain" => $options["translation_domain"]
+        ];
+
+        $builder->add("country", ChoiceType::class, array_merge($config, [
             "choices" => $this->generateChoices($options["countries"]),
-            "data"    => 48
-        ])->add("number", TextType::class, [
-            "label" => false,
-            "attr"  => [
+            "data"    => $options["selected"]
+        ]))->add("number", TextType::class, array_merge($config, [
+            "attr" => [
                 "placeholder" => $options["placeholder"]
             ]
-        ]);
+        ]));
     }
 
     /**

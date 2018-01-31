@@ -12,9 +12,14 @@
     "require": {
         "php": "^7.1",
         "giggsey/libphonenumber-for-php": "^8.8",
+        "symfony/framework-bundle": "^4.0"
+    },
+    "require-dev": {
+        "doctrine/doctrine-bundle": "^1.0",
         "symfony/form": "^4.0",
-        "symfony/framework-bundle": "^4.0",
-        "symfony/twig-bundle": "^4.0"
+        "symfony/templating": "^4.0",
+        "symfony/twig-bundle": "^4.0",
+        "symfony/validator": "^4.0"
     },
     "config": {
         "sort-packages": true

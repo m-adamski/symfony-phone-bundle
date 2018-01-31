@@ -17,7 +17,7 @@ class PhoneNumber implements JsonSerializable, Serializable {
     protected $number;
 
     /**
-     * @var string|null
+     * @var string
      */
     protected $country;
 
@@ -29,10 +29,10 @@ class PhoneNumber implements JsonSerializable, Serializable {
     /**
      * PhoneNumber constructor.
      *
-     * @param string      $number
-     * @param string|null $country
+     * @param string $number
+     * @param string $country
      */
-    public function __construct(string $number, $country = null) {
+    public function __construct(string $number, string $country = PhoneNumberUtil::UNKNOWN_REGION) {
         $this->number = $number;
         $this->country = $country;
         $this->phoneNumberUtil = PhoneNumberUtil::getInstance();
@@ -42,10 +42,10 @@ class PhoneNumber implements JsonSerializable, Serializable {
      * Create the PhoneNumber instance.
      *
      * @param string $number
-     * @param null   $country
+     * @param string $country
      * @return static
      */
-    public static function make(string $number, $country = null) {
+    public static function make(string $number, string $country = PhoneNumberUtil::UNKNOWN_REGION) {
         return new static($number, $country);
     }
 
@@ -96,6 +96,17 @@ class PhoneNumber implements JsonSerializable, Serializable {
      */
     public function formatRFC3966() {
         return $this->format(PhoneNumberFormat::RFC3966);
+    }
+
+    /**
+     * Check if phone number is valid.
+     *
+     * @return bool
+     */
+    public function isValidNumber() {
+        return $this->phoneNumberUtil->isValidNumber(
+            $this->getPhoneNumberInstance()
+        );
     }
 
     /**
