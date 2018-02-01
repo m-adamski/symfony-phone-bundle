@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Intl\Intl;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PhoneNumberType extends AbstractType {
@@ -79,25 +80,59 @@ class PhoneNumberType extends AbstractType {
      */
     private function generateChoices(array $customChoices) {
 
-        $responseArray = [];
+        $countriesArray = [];
 
-        // Generate response array from given custom countries
         if ($customChoices && count($customChoices) > 0) {
             foreach ($customChoices as $regionCode) {
                 $regionCode = strtoupper($regionCode);
                 $countryCode = $this->phoneNumberUtil->getCountryCodeForRegion($regionCode);
 
                 if ($countryCode !== 0) {
-                    $responseArray[sprintf("%s (+%d)", $regionCode, $countryCode)] = $regionCode;
+                    $countriesArray[] = [
+                        "countryCode" => $countryCode,
+                        "regionCode"  => $regionCode,
+                        "countryName" => ""
+                    ];
                 }
             }
+        } else {
 
-            return $responseArray;
+            // Generate countries array from default supported regions
+            foreach ($this->phoneNumberUtil->getSupportedRegions() as $regionCode) {
+                $countryCode = $this->phoneNumberUtil->getCountryCodeForRegion($regionCode);
+
+                $countriesArray[] = [
+                    "countryCode" => $countryCode,
+                    "regionCode"  => $regionCode,
+                    "countryName" => ""
+                ];
+            }
         }
 
-        // Generate response array from default countries collection
-        foreach ($this->phoneNumberUtil->getSupportedRegions() as $key => $value) {
-            $responseArray[sprintf("%s (+%d)", $value, $key)] = $value;
+        // Fill countries array with translated countries names
+        $translatedCountries = $this->translateCountries($countriesArray);
+
+        // Generate response array
+        $responseArray = [];
+        foreach ($translatedCountries as $country) {
+            $responseArray[sprintf("%s (+%d)", $country["countryName"], $country["countryCode"])] = $country["regionCode"];
+        }
+
+        return $responseArray;
+    }
+
+    /**
+     * Translate names of specified countries.
+     *
+     * @param array $countries
+     * @return array
+     */
+    private function translateCountries(array $countries) {
+        $responseArray = [];
+
+        foreach ($countries as $country) {
+            $country["countryName"] = Intl::getRegionBundle()->getCountryName($country["regionCode"]) ?? $country["regionCode"];
+            $responseArray[] = $country;
         }
 
         return $responseArray;
