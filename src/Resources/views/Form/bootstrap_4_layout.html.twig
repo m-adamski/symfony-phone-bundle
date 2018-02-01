@@ -1,3 +1,5 @@
+{% use "bootstrap_4_layout.html.twig" %}
+
 {% block form_row -%}
     <{{ element|default('div') }} class="form-group">
     {{- form_label(form) -}}
@@ -5,3 +7,8 @@
     {{- form_errors(form) -}}
     </{{ element|default('div') }}>
 {%- endblock form_row %}
+
+{% block form_label -%}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' form-control-label')|trim}) -%}
+    {{- parent() -}}
+{%- endblock form_label %}
