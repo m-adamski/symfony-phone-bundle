@@ -2,24 +2,11 @@
 
 namespace Adamski\Symfony\PhoneNumberBundle\Validator\Constraints;
 
-use libphonenumber\PhoneNumberUtil;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Adamski\Symfony\PhoneNumberBundle\Model\PhoneNumber;
 
 class PhoneNumberValidator extends ConstraintValidator {
-
-    /**
-     * @var PhoneNumberUtil
-     */
-    protected $phoneNumberUtil;
-
-    /**
-     * PhoneNumberValidator constructor.
-     */
-    public function __construct() {
-        $this->phoneNumberUtil = PhoneNumberUtil::getInstance();
-    }
 
     /**
      * {@inheritdoc}

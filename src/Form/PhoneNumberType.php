@@ -31,17 +31,17 @@ class PhoneNumberType extends AbstractType {
         // Define global config array for both fields
         $config = [
             "label"              => false,
-            "required"           => $options["required"],
             "disabled"           => $options["disabled"],
-            "error_bubbling"     => $options["error_bubbling"],
             "translation_domain" => $options["translation_domain"]
         ];
 
         $builder->add("country", ChoiceType::class, array_merge($config, [
-            "choices" => $this->generateChoices($options["countries"]),
-            "data"    => $this->getSelectedCode($options["selected"])
+            "choices"           => $this->generateChoices($options["countries"]),
+            "preferred_choices" => $this->getPreferredChoices($options["preferred"]),
+            "required"          => true
         ]))->add("number", TextType::class, array_merge($config, [
-            "attr" => [
+            "required" => $options["required"],
+            "attr"     => [
                 "placeholder" => $options["placeholder"]
             ]
         ]))->addViewTransformer(
@@ -54,9 +54,13 @@ class PhoneNumberType extends AbstractType {
      */
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
-            "countries"   => [],
-            "selected"    => false,
-            "placeholder" => false
+            "countries"       => [],
+            "preferred"       => [],
+            "selected"        => false,
+            "placeholder"     => false,
+            "invalid_message" => "Provided phone number is incorrect",
+            "by_reference"    => false,
+            "error_bubbling"  => false
         ]);
     }
 
@@ -100,16 +104,24 @@ class PhoneNumberType extends AbstractType {
     }
 
     /**
-     * Get country code for specified region.
+     * Generate array with preferred choices.
      *
-     * @param $regionCode
-     * @return int|null
+     * @param $customChoices
+     * @return array
      */
-    private function getSelectedCode($regionCode) {
-        if ($regionCode && in_array($regionCode, $this->phoneNumberUtil->getSupportedRegions())) {
-            return $regionCode;
+    private function getPreferredChoices($customChoices) {
+        if ($customChoices) {
+            if (is_array($customChoices)) {
+                return array_filter($customChoices, function ($regionCode) {
+                    return in_array($regionCode, $this->phoneNumberUtil->getSupportedRegions());
+                });
+            }
+
+            if (is_string($customChoices) && in_array($customChoices, $this->phoneNumberUtil->getSupportedRegions())) {
+                return [$customChoices];
+            }
         }
 
-        return null;
+        return [];
     }
 }

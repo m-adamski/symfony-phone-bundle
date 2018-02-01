@@ -1,0 +1,7 @@
+{% block form_row -%}
+    <{{ element|default('div') }} class="form-group">
+    {{- form_label(form) -}}
+    {{- form_widget(form) -}}
+    {{- form_errors(form) -}}
+    </{{ element|default('div') }}>
+{%- endblock form_row %}

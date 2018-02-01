@@ -22,7 +22,7 @@ class PhoneNumberTransformer implements DataTransformerInterface {
         }
 
         return [
-            "country" => $value->getCountryCode(),
+            "country" => $value->getRegionCode(),
             "number"  => $value->formatNational()
         ];
     }

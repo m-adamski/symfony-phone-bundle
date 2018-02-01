@@ -33,9 +33,18 @@ class PhoneNumber implements JsonSerializable, Serializable {
      * @param string $country
      */
     public function __construct(string $number, string $country = PhoneNumberUtil::UNKNOWN_REGION) {
-        $this->number = $number;
-        $this->country = $country;
         $this->phoneNumberUtil = PhoneNumberUtil::getInstance();
+
+        try {
+            $phoneNumberInstance = $this->phoneNumberUtil->parse($number, $country);
+        } catch (NumberParseException $exception) {
+            $phoneNumberInstance = null;
+        }
+
+        if ($phoneNumberInstance) {
+            $this->number = $phoneNumberInstance->getNationalNumber();
+            $this->country = $this->phoneNumberUtil->getRegionCodeForCountryCode($phoneNumberInstance->getCountryCode());
+        }
     }
 
     /**
