@@ -80,10 +80,11 @@ class PhoneNumberType extends AbstractType {
         // Generate response array from given custom countries
         if ($customChoices && count($customChoices) > 0) {
             foreach ($customChoices as $regionCode) {
+                $regionCode = strtoupper($regionCode);
                 $countryCode = $this->phoneNumberUtil->getCountryCodeForRegion($regionCode);
 
                 if ($countryCode !== 0) {
-                    $responseArray[sprintf("%s (+%d)", strtoupper($regionCode), $countryCode)] = $countryCode;
+                    $responseArray[sprintf("%s (+%d)", $regionCode, $countryCode)] = $regionCode;
                 }
             }
 
@@ -92,7 +93,7 @@ class PhoneNumberType extends AbstractType {
 
         // Generate response array from default countries collection
         foreach ($this->phoneNumberUtil->getSupportedRegions() as $key => $value) {
-            $responseArray[sprintf("%s (+%d)", $value, $key)] = $key;
+            $responseArray[sprintf("%s (+%d)", $value, $key)] = $value;
         }
 
         return $responseArray;
@@ -105,8 +106,8 @@ class PhoneNumberType extends AbstractType {
      * @return int|null
      */
     private function getSelectedCode($regionCode) {
-        if ($regionCode) {
-            return $this->phoneNumberUtil->getCountryCodeForRegion($regionCode);
+        if ($regionCode && in_array($regionCode, $this->phoneNumberUtil->getSupportedRegions())) {
+            return $regionCode;
         }
 
         return null;
