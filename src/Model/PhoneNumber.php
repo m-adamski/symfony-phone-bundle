@@ -63,6 +63,26 @@ class PhoneNumber implements JsonSerializable, Serializable {
     }
 
     /**
+     * Get Country code.
+     *
+     * @return int|null
+     */
+    public function getCountryCode() {
+        return $this->getPhoneNumberInstance()->getCountryCode();
+    }
+
+    /**
+     * Get Region code.
+     *
+     * @return string
+     */
+    public function getRegionCode() {
+        return $this->phoneNumberUtil->getRegionCodeForCountryCode(
+            $this->getCountryCode()
+        );
+    }
+
+    /**
      * Format the phone number in international format.
      *
      * @return string

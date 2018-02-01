@@ -4,6 +4,12 @@ namespace Adamski\Symfony\PhoneNumberBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
+/**
+ * Class PhoneNumber
+ *
+ * @Annotation
+ * @package Adamski\Symfony\PhoneNumberBundle\Validator\Constraints
+ */
 class PhoneNumber extends Constraint {
 
     /**

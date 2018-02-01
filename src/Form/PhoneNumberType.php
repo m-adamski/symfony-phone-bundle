@@ -39,12 +39,14 @@ class PhoneNumberType extends AbstractType {
 
         $builder->add("country", ChoiceType::class, array_merge($config, [
             "choices" => $this->generateChoices($options["countries"]),
-            "data"    => $options["selected"]
+            "data"    => $this->getSelectedCode($options["selected"])
         ]))->add("number", TextType::class, array_merge($config, [
             "attr" => [
                 "placeholder" => $options["placeholder"]
             ]
-        ]));
+        ]))->addViewTransformer(
+            new PhoneNumberTransformer()
+        );
     }
 
     /**
@@ -94,5 +96,19 @@ class PhoneNumberType extends AbstractType {
         }
 
         return $responseArray;
+    }
+
+    /**
+     * Get country code for specified region.
+     *
+     * @param $regionCode
+     * @return int|null
+     */
+    private function getSelectedCode($regionCode) {
+        if ($regionCode) {
+            return $this->phoneNumberUtil->getCountryCodeForRegion($regionCode);
+        }
+
+        return null;
     }
 }
