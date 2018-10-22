@@ -75,3 +75,7 @@ public function buildForm(FormBuilderInterface $builder, array $options) {
         ]);
 }
 ```
+
+## License
+
+MIT
