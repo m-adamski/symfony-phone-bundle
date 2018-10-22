@@ -4,17 +4,8 @@ Custom PhoneNumber Bundle integrating [libphonenumber](https://github.com/giggse
 
 ## Installation
 
-Use Composer to install this bundle into Symfony 4 project. First, edit composer.json file by adding additional repository configuration:
-```
-"repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/m-adamski/symfony-phone-bundle"
-        }
-    ]
-```
+Use Composer to install this bundle into Symfony 4 project:
 
-When additional repository is configured it's time to install bundle:
 ```
 $ composer require m-adamski/symfony-phone-bundle
 ```
@@ -22,6 +13,7 @@ $ composer require m-adamski/symfony-phone-bundle
 ## Configuration
 
 To use this bundle, you need to register it in ``config/bundles.php`` - Symfony Flex should do it automatically.
+
 ```(php)
 return [
     Adamski\Symfony\PhoneNumberBundle\PhoneNumberBundle::class => ['all' => true],
@@ -29,6 +21,7 @@ return [
 ```
 
 Register new Doctrine Type in ``config/packages/doctrine.yaml``
+
 ```(yaml)
 doctrine:
     dbal:
@@ -37,6 +30,7 @@ doctrine:
 ```
 
 This Bundle provide type template for Bootstrap 4. Register it in ``config/packages/twig.yaml``
+
 ```(yaml)
 twig:
     form_themes:
@@ -44,6 +38,7 @@ twig:
 ```
 
 You can also overwrite default Symfony Bootstrap 4 template by adding ``- '@PhoneNumber/Form/bootstrap_4_layout.html.twig'`` into ``form_themes`` parameter:
+
 ```(yaml)
 twig:
     form_themes:
@@ -54,6 +49,7 @@ twig:
 ## How to use it?
 
 Bundle provide additional Doctrine Type and Form Type. First, edit entity to use PhoneNumber Type:
+
 ```(php)
 use Adamski\Symfony\PhoneNumberBundle\Model\PhoneNumber;
 use Adamski\Symfony\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
@@ -67,6 +63,7 @@ protected $phoneNumber;
 ```
 
 Now it's time to provide changes in Form Type:
+
 ```(php)
 use Adamski\Symfony\PhoneNumberBundle\Form\PhoneNumberType;
 
