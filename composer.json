@@ -11,15 +11,12 @@
     ],
     "require": {
         "php": "^7.1",
+        "doctrine/doctrine-bundle": "^1.9",
         "giggsey/libphonenumber-for-php": "^8.8",
-        "symfony/framework-bundle": "^4.0"
-    },
-    "require-dev": {
-        "doctrine/doctrine-bundle": "^1.0",
-        "symfony/form": "^4.0",
-        "symfony/templating": "^4.0",
-        "symfony/twig-bundle": "^4.0",
-        "symfony/validator": "^4.0"
+        "symfony/form": "^3.4|^4.1",
+        "symfony/framework-bundle": "^3.4|^4.1",
+        "symfony/twig-bundle": "^3.4|^4.1",
+        "symfony/validator": "^3.4|^4.1"
     },
     "config": {
         "sort-packages": true
