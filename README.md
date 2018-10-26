@@ -12,14 +12,6 @@ $ composer require m-adamski/symfony-phone-bundle
 
 ## Configuration
 
-To use this bundle, you need to register it in ``config/bundles.php`` - Symfony Flex should do it automatically.
-
-```(php)
-return [
-    Adamski\Symfony\PhoneNumberBundle\PhoneNumberBundle::class => ['all' => true],
-];
-```
-
 Register new Doctrine Type in ``config/packages/doctrine.yaml``
 
 ```(yaml)
