@@ -11,10 +11,10 @@
     ],
     "require": {
         "php": "^7.1",
-        "doctrine/doctrine-bundle": "^1.9",
         "giggsey/libphonenumber-for-php": "^8.8",
         "symfony/form": "^3.4|^4.1",
         "symfony/framework-bundle": "^3.4|^4.1",
+        "symfony/orm-pack": "^1.0",
         "symfony/twig-bundle": "^3.4|^4.1",
         "symfony/validator": "^3.4|^4.1"
     },
