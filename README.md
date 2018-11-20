@@ -1,5 +1,9 @@
 # PhoneNumber Bundle for Symfony 4
 
+**This bundle is deprecated!** A new repository has been created to maintain the convention of package names. I suggest using [this package](https://github.com/m-adamski/symfony-phone-number-bundle).
+
+---
+
 Custom PhoneNumber Bundle integrating [libphonenumber](https://github.com/giggsey/libphonenumber-for-php) library into Symfony 4 project. This bundle is inspired by [PhoneNumberBundle](https://github.com/misd-service-development/phone-number-bundle) but simplified and created for own projects - of course you can use it if you want.
 
 ## Installation
